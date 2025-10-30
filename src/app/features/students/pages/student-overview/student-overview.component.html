@@ -1,1 +1,46 @@
-<p>student-overview works!</p>
+<div class="overview-container">
+  <div class="header">
+    <h2>Students Info System</h2>
+    <button pButton type="button" label="Add Student" icon="pi pi-plus" (click)="addStudent()"></button>
+  </div>
+
+  <p-table [value]="paginatedStudents()" [paginator]="false" [rows]="rows" class="p-datatable-gridlines">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="firstName">First Name<p-sortIcon field="firstName"></p-sortIcon></th>
+        <th pSortableColumn="lastName">Last Name<p-sortIcon field="lastName"></p-sortIcon></th>
+        <th>Email</th>
+        <th>Courses</th>
+        <th style="width: 150px;">Actions</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-student>
+      <tr (click)="showStudentDetails(student)" class="clickable-row">
+        <td>{{ student.firstName }}</td>
+        <td>{{ student.lastName }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.courses.length ? student.courses.join(', ') : 'No courses selected' }}</td>
+        <td>
+          <button pButton icon="pi pi-pencil" class="p-button-text p-button-sm" (click)="editStudent(student.id); $event.stopPropagation()"></button>
+          <button pButton icon="pi pi-trash" class="p-button-text p-button-danger p-button-sm" (click)="deleteStudent(student.id); $event.stopPropagation()"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-dialog header="Student Details" [visible]="dialogVisible()" [modal]="true" [closable]="true" [dismissableMask]="true" [style]="{ width: '400px' }" (onHide)="hideDetails()" (visibleChange)="dialogVisible.set($event)">
+    <ng-container *ngIf="selectedStudent() as s">
+        <div class="studentdet">
+            <p><strong>First Name: </strong> {{ s.firstName }}</p>
+            <p><strong>Last Name: </strong> {{ s.lastName }}</p>
+            <p><strong>Email: </strong> {{ s.email }}</p>
+            <p><strong>Courses: </strong> {{ s.courses.length ?  s.courses.join(', ') : 'No courses selected' }}</p>
+        </div>
+    </ng-container>
+  </p-dialog>
+
+  <p-paginator [first]="firstPage()" [rows]="rows" [totalRecords]="students().length"
+               (onPageChange)="onPageChange($event)">
+  </p-paginator>
+</div>

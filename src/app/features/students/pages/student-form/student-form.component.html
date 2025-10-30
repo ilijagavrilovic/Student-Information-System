@@ -1,1 +1,35 @@
-<p>student-form works!</p>
+<div class="form-container">
+  <h2>{{ currentStudent ? 'Edit Student' : 'Add Student' }}</h2>
+
+  <div class="form-field">
+    <label for="firstName">First Name</label>
+    <input id="firstName" type="text" pInputText [(ngModel)]="student().firstName">
+  </div>
+
+  <div class="form-field">
+    <label for="lastName">Last Name</label>
+    <input id="lastName" type="text" pInputText [(ngModel)]="student().lastName">
+  </div>
+
+  <div class="form-field">
+    <label for="email">Email</label>
+    <input id="email" type="email" pInputText [(ngModel)]="student().email">
+  </div>
+
+  <div class="form-field">
+    <label>Courses</label>
+    <div class="courses-input">
+      <input type="text" pInputText placeholder="Add course" [ngModel]="courseInput()" (ngModelChange)="courseInput.set($event)">
+      <button pButton type="button" icon="pi pi-plus" class="p-button-text" (click)="addCourse()"></button>
+    </div>
+
+    <div class="courses-list">
+      <p-chip *ngFor="let c of student().courses" [label]="c" removable="true" (onRemove)="removeCourse(c)"></p-chip>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button pButton type="button" label="Save" icon="pi pi-check" (click)="save()"></button>
+    <button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-secondary" (click)="cancel()"></button>
+  </div>
+</div>
