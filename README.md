@@ -1,59 +1,80 @@
-# StudentInfoSystem
+# 🧑‍🎓 Student Information System
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.18.
+This project is a simple student information system built with the latest **Angular** and **PrimeNG**.  
+It allows users to manage student data through user-friendly interface, implementing all the requested features from the assignment.
 
-## Development server
 
-To start a local development server, run:
+## 🚀 Features
 
+- **Add a new student** (basic info + course selection)  
+- **Edit student information** (courses only)  
+- **Delete a student**  
+- **Overview page** with a table displaying all students  
+  - Pagination (20 students per page)  
+  - Sorting by name and surname 
+  - Modal popup with full student details 
+- **Dark mode toggle** 
+- Responsive layout with PrimeNG components
+
+
+## 🧩 Technologies Used
+
+- **Angular** (latest version)  
+- **PrimeNG** (UI components and icons)  
+- **PrimeIcons**  
+- **TypeScript**  
+- **HTML / CSS** (custom styles for table and layout)
+
+
+
+
+## 💤 Lazy Loading
+
+The `/overview` route (student overview page) is **lazily loaded** via Angular’s route configuration:
+
+```typescript
+export const routes: Routes = [
+  { path: '', redirectTo: 'overview', pathMatch: 'full' },
+  { path: 'overview', loadChildren: () => import('./features/students/students.routes').then(m => m.STUDENTS_ROUTES) },
+  { path: '**', redirectTo: 'overview' }
+];
+```
+This ensures the student-related code is only downloaded when the user navigates to the overview page.
+
+## ⚙️ Setup & Run (local)
+
+### 1. Clone repository
 ```bash
+git clone https://github.com/ilijagavrilovic/Student-Information-System.git
+cd student-info-system
+```
+
+### 2. Instal dependencies
+```
+npm install
+```
+
+### 3. Run it
+
+```
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 4. Open in browser
+Open app in your browser at: http://localhost:4200
 
-## Code scaffolding
+## 🧾 Notes
+The project simulates clean project structure. It also show usage of Angular standalone components and Signals for state.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+I used PrimeNG components for consistent UI, and lazy loading for keeping initial bundle small.
 
-```bash
-ng generate component component-name
-```
+## 🧠 Author
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+**Ilija Gavrilović**  
+📍 *Ljubljana, Slovenia*  
+💼 *Front-End Developer & UX/UI Designer*  
+📧 [ilijagavrilovic03@gmail.com](mailto:ilijagavrilovic03@gmail.com)
 
-```bash
-ng generate --help
-```
 
-## Building
 
-To build the project run:
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
